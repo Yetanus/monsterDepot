@@ -1,5 +1,6 @@
 package kf.monster.depot;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -7,6 +8,7 @@ import org.springframework.context.event.EventListener;
 
 import java.util.Arrays;
 
+@Slf4j
 @SpringBootApplication
 public class DepotApplication {
 
@@ -18,7 +20,11 @@ public class DepotApplication {
 	@EventListener
 	public void onApplicationEvent(ApplicationReadyEvent event)
 	{
-		Arrays.stream(event.getApplicationContext().getBeanDefinitionNames()).forEach(System.out::println);
+		String[] allBeanNames = event.getApplicationContext().getBeanDefinitionNames();
+		for (String beanName: allBeanNames)
+		{
+			log.info(beanName);
+		}
 	}
 
 }

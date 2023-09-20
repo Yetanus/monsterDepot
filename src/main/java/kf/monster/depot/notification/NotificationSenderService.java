@@ -2,13 +2,21 @@ package kf.monster.depot.notification;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class NotificationSenderService
 {
-    private final NotificationService notificationService;
+    private final List<NotificationService> notificationServices;
 
-    public NotificationSenderService(NotificationService notificationService)
+    public NotificationSenderService(List<NotificationService> notificationServices)
     {
-        this.notificationService = notificationService;
+        this.notificationServices = notificationServices;
+    }
+
+    public void sendNotification(String message, UUID customerId)
+    {
+        notificationServices.forEach(notificationService -> notificationService.sendNotification(message, customerId));
     }
 }
